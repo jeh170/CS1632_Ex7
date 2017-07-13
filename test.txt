@@ -1,0 +1,8 @@
+testGetFirstMonkey(MonkeySimTest): org/objenesis/ObjenesisStd
+
+!!! - At least one failure, see above.
+//Round 1: Threw banana from Monkey (#8 / ID 8) to Monkey (#4 / ID 4)
+//Round 2: Threw banana from Monkey (#4 / ID 4) to Monkey (#2 / ID 2)
+//Round 3: Threw banana from Monkey (#2 / ID 2) to Monkey (#1 / ID 1)
+First monkey has the banana!
+Completed in 3 rounds.

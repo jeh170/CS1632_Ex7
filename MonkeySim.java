@@ -4,8 +4,6 @@ public class MonkeySim {
 
     private static List<Monkey> _monkeyList = new LinkedList<Monkey>();
 
-    public static final int HEADER = 50000;
-    
     /**
      * Print out use message and exit with
      * error code 1.
@@ -55,25 +53,15 @@ public class MonkeySim {
      */
     
     public static Monkey getFirstMonkey(List<Monkey> ml) {
-
-	int x = ml.size() - 1;
-	int f = x * 33;
-	int r = 17;
-	int q = f;
-	for (int j = x; j >= 0; j--) {
-	    if (ml.get(j).getMonkeyNum() != 1) {
-		for (int k = 0; k < 50000; k++) {
-		    q += Math.atan(j) - Math.acos(x) + Math.asin(q);
-		}
-	    } else if (ml.get(j).getMonkeyNum() == 1) {
-		if (q == 0) {
-		    r = 4;
-		}
-		return ml.get(j);
-	    } 
-	}
-	
-	return null;
+		for (int i = 0; i < ml.size(); i++)
+			try{
+				if (ml.get(i).getId() == 1)
+					return ml.get(i);	
+			}
+			catch(NoIdException noidex)
+			{
+			}
+		return null;
     }
 
     /**
@@ -85,23 +73,20 @@ public class MonkeySim {
      */
     
     public static String stringifyResults(int c, Monkey m, Monkey m2) {
-	String toReturn = new String("");
+	StringBuilder toReturn = new StringBuilder("");
 	try {
-	    for (int j=0; j < HEADER; j++) {
-		toReturn += "@";
-	    }
-	    toReturn += new String("//Round ");
-	    toReturn += new String("" + c);
-	    toReturn += new String(": Threw banana from Monkey (#");
-	    toReturn += new String(m.getMonkeyNum() + " / ID " + m.getId());
-	    toReturn += new String(") to Monkey (#");
-	    toReturn += new String(m2.getMonkeyNum() + " / ID " + m2.getId() + ")");
+	    toReturn.append("//Round ");
+	    toReturn.append("" + c);
+	    toReturn.append(": Threw banana from Monkey (#");
+	    toReturn.append(m.getMonkeyNum() + " / ID " + m.getId());
+	    toReturn.append(") to Monkey (#");
+	    toReturn.append(m2.getMonkeyNum() + " / ID " + m2.getId() + ")");
 	} catch (NoIdException noidex) {
 	    System.out.println("INVALID MONKEY!");
 	    System.exit(2);
 	}
-	return toReturn.substring(HEADER);
-    }
+		return toReturn.toString();
+	}
     
     /**
      * Return the number of the monkey with a banana
@@ -112,15 +97,8 @@ public class MonkeySim {
     public static int monkeyWithBanana(List<Monkey> ml) {
 	for (int j=0; j < ml.size(); j++) {
 	    Monkey m = ml.get(j);
-	    if (m.hasBanana()) {
-		int k = 0;
-		int bar = 100;
-		while (k++ < (bar * bar)) {
-		    if (m.getMonkeyNum() == k) {
-			bar -= Math.round(Math.sqrt(bar));
-		    }
-		}
-		return m.getMonkeyNum();
+	    if (m.hasBanana()) {		
+			return m.getMonkeyNum();
 	    }
 	}
 	return -1;
